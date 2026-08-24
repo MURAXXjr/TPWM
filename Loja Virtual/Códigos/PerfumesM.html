@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoPerfumes</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            width: 100%;
+            height: 70px;
+
+            flex-shrink: 0;
+
+            background: #66c984;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 8%;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* PRODUTOS */
+
+        #produtos {
+            flex: 1;
+
+            width: 100%;
+
+            padding: 0 30px;
+
+            display: grid;
+
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: 280px;
+
+            align-content: center;
+            justify-content: center;
+
+            gap: 18px 14px;
+        }
+
+        /* CARD */
+
+        .produto {
+            position: relative;
+
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 8px;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        /* IMAGEM */
+
+        .produto img {
+            width: 100%;
+            height: 150px;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        /* MARCA */
+
+        .marca {
+            margin-top: 4px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        /* NOME */
+
+        .nome {
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            line-height: 1.2;
+        }
+
+        /* PREÇO */
+
+        .preco {
+            margin-top: 5px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        /* BOTÃO CARRINHO */
+
+        .btn-carrinho {
+            position: absolute;
+
+            right: 8px;
+            bottom: 8px;
+
+            width: 32px;
+            height: 32px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #009688;
+
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        .btn-carrinho:hover {
+            background: #00796b;
+        }
+
+        /* TELAS MENORES */
+
+        @media (max-width: 1000px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            #produtos {
+                grid-template-columns: repeat(4, 1fr);
+                grid-auto-rows: 260px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            EcoPerfumes
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Início
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesM.html">
+                    Perfumes
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesF.html">
+                    Femininos
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Carrinho
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Sobre
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <div id="produtos"></div>
+
+
+    <script>
+
+        const perfumes = [
+
+            {
+                id: 1,
+                marca: "Boticário",
+                nome: "Malbec Noir 100ml",
+                img: "../fotos/MalbecNoir.jpg",
+                preco: "R$ 239,90"
+            },
+
+            {
+                id: 2,
+                marca: "Boticário",
+                nome: "Malbec Black 100ml",
+                img: "../fotos/MalbecBlack.jpg",
+                preco: "R$ 229,90"
+            },
+
+            {
+                id: 3,
+                marca: "Boticário",
+                nome: "Quasar 100ml",
+                img: "../fotos/QuasarBlue.jpg",
+                preco: "R$ 149,90"
+            },
+
+            {
+                id: 4,
+                marca: "Boticário",
+                nome: "The Blend 100ml",
+                img: "../fotos/TheBlend.jpg",
+                preco: "R$ 199,90"
+            },
+
+            {
+                id: 5,
+                marca: "Paco Rabanne",
+                nome: "1 Million 100ml",
+                img: "../fotos/1million.jpg",
+                preco: "R$ 599,90"
+            },
+
+            {
+                id: 6,
+                marca: "Paco Rabanne",
+                nome: "Invictus 100ml",
+                img: "../fotos/pacorabanne.jpg",
+                preco: "R$ 579,90"
+            },
+
+            {
+                id: 7,
+                marca: "Carolina Herrera",
+                nome: "212 Men 100ml",
+                img: "../fotos/212men.jpg",
+                preco: "R$ 499,90"
+            },
+
+            {
+                id: 8,
+                marca: "Armani",
+                nome: "Acqua di Gio 100ml",
+                img: "../fotos/Acqua.jpg",
+                preco: "R$ 699,90"
+            },
+
+            {
+                id: 9,
+                marca: "Chanel",
+                nome: "Bleu de Chanel 100ml",
+                img: "../fotos/BleuChanel.jpg",
+                preco: "R$ 899,90"
+            },
+
+            {
+                id: 10,
+                marca: "Versace",
+                nome: "Eros 100ml",
+                img: "../fotos/eros.jpg",
+                preco: "R$ 549,90"
+            }
+
+        ];
+
+
+        const produtos = document.getElementById("produtos");
+
+
+        perfumes.forEach((produto) => {
+
+            produtos.innerHTML += `
+
+                <div class="produto">
+
+                    <img
+                        src="${produto.img}"
+                        alt="${produto.nome}"
+                    >
+
+                    <div class="marca">
+                        ${produto.marca}
+                    </div>
+
+                    <div class="nome">
+                        ${produto.nome}
+                    </div>
+
+                    <div class="preco">
+                        ${produto.preco}
+                    </div>
+
+                    <button
+                        class="btn-carrinho"
+                        onclick="adicionarCarrinho(${produto.id})"
+                    >
+                        🛒
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+
+        function adicionarCarrinho(id) {
+
+            const produto = perfumes.find(
+                item => item.id === id
+            );
+
+            console.log(
+                "Produto adicionado:",
+                produto.nome
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

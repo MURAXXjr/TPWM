@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoPerfumes</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            width: 100%;
+            min-height: 80px;
+
+            background: #66c984;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 8%;
+        }
+
+        .logo {
+            color: white;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* BANNER */
+
+        .banner {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* PRODUTOS */
+
+        #produtos {
+            width: 100%;
+
+            max-width: 1400px;
+
+            margin: 50px auto;
+
+            padding: 0 30px;
+
+            display: grid;
+
+            grid-template-columns: repeat(6, 1fr);
+
+            gap: 20px;
+        }
+
+        .produto {
+            position: relative;
+
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+            min-height: 430px;
+        }
+
+        .produto img {
+            width: 100%;
+
+            height: 280px;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        .marca {
+            margin-top: 10px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+        .nome {
+            margin-top: 5px;
+
+            font-size: 14px;
+
+            min-height: 40px;
+        }
+
+        .preco {
+            margin-top: 10px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        .btn-carrinho {
+            position: absolute;
+
+            right: 15px;
+
+            bottom: 15px;
+
+            width: 42px;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #009688;
+
+            color: white;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+        .btn-carrinho:hover {
+            background: #00796b;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 1200px) {
+
+            #produtos {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+
+                gap: 15px;
+
+                padding: 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 15px;
+            }
+
+            #produtos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            #produtos {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            EcoPerfumes
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Início
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesM.html">
+                    Perfumes Masculinos
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesF.html">
+                    Perfumes Femininos
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Carrinho
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Sobre
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- BANNER -->
+
+    <section class="banner">
+
+        <img
+            src="../fotos/banner2.png"
+            alt="Promoção de perfumes"
+        >
+
+    </section>
+
+
+    <!-- PRODUTOS -->
+
+    <div id="produtos"></div>
+
+
+    <script>
+
+        const items = [
+
+            {
+                id: 0,
+                marca: 'Boticário',
+                nome: 'Malbec Gold 100ml',
+                img: '../fotos/malbecgold.jpg',
+                preco: 'R$ 259,90'
+            },
+
+            {
+                id: 1,
+                marca: 'Boticário',
+                nome: 'EGEO Blue 90ml',
+                img: '../fotos/EgeoBlue.jpg',
+                preco: 'R$ 164,90'
+            },
+
+            {
+                id: 2,
+                marca: 'Dior',
+                nome: 'Sauvage 100ml',
+                img: '../fotos/sauvage.jpg',
+                preco: 'R$ 869,00'
+            },
+
+            {
+                id: 3,
+                marca: 'Carolina Herrera',
+                nome: 'Carolina Herrera 50ml',
+                img: '../fotos/CarolinaHerrera.jpg',
+                preco: 'R$ 699,00'
+            },
+
+            {
+                id: 4,
+                marca: 'Carolina Herrera',
+                nome: '212 Vip Carolina Herrera Feminino 50ml',
+                img: '../fotos/212VipCarolinaHerreraFeminino.jpg',
+                preco: 'R$ 353,70'
+            },
+
+            {
+                id: 5,
+                marca: 'Prada',
+                nome: 'Perfume Feminino Prada Paradoxe Virtual Flower Eau de Parfum 30ml',
+                img: '../fotos/PradaParadoxoFeminino.jpg',
+                preco: 'R$ 558,52'
+            }
+
+        ];
+
+
+        const produtos = document.getElementById('produtos');
+
+
+        items.forEach((produto) => {
+
+            produtos.innerHTML += `
+
+                <div class="produto">
+
+                    <img
+                        src="${produto.img}"
+                        alt="${produto.nome}"
+                    >
+
+                    <div class="marca">
+                        ${produto.marca}
+                    </div>
+
+                    <div class="nome">
+                        ${produto.nome}
+                    </div>
+
+                    <div class="preco">
+                        ${produto.preco}
+                    </div>
+
+                    <button
+                        class="btn-carrinho"
+                        onclick="adicionarCarrinho(${produto.id})"
+                    >
+                        🛒
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+
+        function adicionarCarrinho(id) {
+
+            const produto = items.find(
+                item => item.id === id
+            );
+
+            console.log(
+                'Produto adicionado:',
+                produto.nome
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
