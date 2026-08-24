@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPerfumes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            width: 100%;
+            height: 70px;
+            background: #66c984;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .banner img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">EcoPerfumes</a>
+
+        <ul class="nav-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#produtos">Perfumes Masculinos</a></li>
+            <li><a href="#produtos">Perfumes Femininos</a></li>
+            <li><a href="#">Carrinho</a></li>
+            <li><a href="#">Sobre</a></li>
+        </ul>
+    </nav>
+
+    <div id="banner"></div>
+    <div id="produtos"></div>
+
+    <script>
+        const items = [
+            { id: 0, marca: 'Boticário', nome: 'Malbec Gold 100ml', img: 'fotos/malbecgold.jpg', preco: 'R$ R$ R$ 259,90' },
+            { id: 1, marca: 'Boticário', nome: 'EGEO Blue 90ml', img: 'fotos/EgeoBlue.jpg', preco: 'R$ R$ 164,90' },
+            { id: 2, marca: 'Dior', nome: 'sauvage 100ml', img: 'fotos/sauvage.jpg', preco: 'R$ 869,00' },
+            { id: 3, marca: 'Carolina Herrera', nome: 'Carolina Herrera 50ml', img: 'fotos/CarolinaHerrera.jpg', preco: 'R$ 699,00' },
+            { id: 4, marca: 'Carolina Herrera', nome: '212 Vip Carolina Herrera Feminino 50ml', img: 'fotos/212VipCarolinaHerreraFeminino.jpg', preco: 'R$ 353,70' },
+            { id: 5, marca: 'Prada', nome: 'Perfume Feminino Prada Paradoxe Virtual Flower Eau de Parfum 30ml', img: 'fotos/PradaParadoxoFeminino.jpg', preco: 'R$ 558,52' }
+        ];
+
+        const estilo = document.createElement('style');
+
+        estilo.innerHTML = `
+            #produtos {
+                width: 100%;
+                max-width: 1400px;
+                margin: 70px auto 50px;
+                padding: 0 30px;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 20px;
+            }
+
+            .produto {
+                position: relative;
+                background: white;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .produto img {
+                width: 100%;
+                height: 280px;
+                object-fit: contain;
+            }
+
+            .marca {
+                margin-top: 10px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .nome {
+                margin-top: 5px;
+                font-size: 14px;
+            }
+
+            .preco {
+                margin-top: 10px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .btn-carrinho {
+                position: absolute;
+                right: 15px;
+                bottom: 15px;
+                width: 42px;
+                height: 42px;
+                border: none;
+                border-radius: 6px;
+                background: #009688;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+            }
+        `;
+
+        document.head.appendChild(estilo);
+
+        document.getElementById('banner').innerHTML = `
+            <section class="banner">
+                <img src="fotos/banner2.png" alt="Promoção de perfumes">
+            </section>
+        `;
+
+        const produtos = document.getElementById('produtos');
+
+        items.forEach((val) => {
+            produtos.innerHTML += `
+                <div class="produto">
+                    <img src="${val.img}" alt="${val.nome}">
+                    <div class="marca">${val.marca}</div>
+                    <div class="nome">${val.nome}</div>
+                    <div class="preco">${val.preco}</div>
+                    <button class="btn-carrinho" onclick="adicionarCarrinho(${val.id})">🛒</button>
+                </div>
+            `;
+        });
+
+        const adicionarCarrinho = (id) => {
+            const produto = items.find(item => item.id === id);
+            console.log('Produto adicionado:', produto.nome);
+        };
+    </script>
+
+</body>
+</html>
