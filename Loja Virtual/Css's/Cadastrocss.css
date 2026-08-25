@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 55%
+        ),
+        linear-gradient(
+            to top,
+            #06251a 0%,
+            #0b3d2b 25%,
+            #24694b 50%,
+            #78aa91 72%,
+            #dcebe4 88%,
+            #ffffff 100%
+        );
+}
+
+.login-container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 400px;
+    padding: 40px;
+
+    background: white;
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 8px;
+
+    color: #0b3d2b;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #24694b;
+}
+
+
+/* Área da senha */
+
+.password-container {
+    display: flex;
+    position: relative;
+}
+
+.password-container input {
+    padding-right: 45px;
+}
+
+
+/* Botão do olho */
+
+.mostrarSenha {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.mostrarSenha:hover {
+    color: #0b3d2b;
+
+    transform: translateY(-50%) scale(1.1);
+}
+
+
+/* Mensagem */
+
+#mensagem {
+    margin-bottom: 15px;
+
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* Botão */
+
+.btn-login {
+    width: 100%;
+    height: 45px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #000000;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.btn-login:hover {
+    background: #1a963f; /*cor do botão quando passa o mouse por cima*/
+}
+
+
+/* Brilho */
+
+.btn-login::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+
+    transition: left 0.5s ease;
+}
+
+
+/* Hover */
+
+.btn-login:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 15px rgba(6, 37, 26, 0.35);
+}
+
+.btn-login:hover::before {
+    left: 100%;
+}
+
+
+/* Clique */
+
+.btn-login:active {
+    transform: translateY(1px);
+
+    box-shadow:
+        0 2px 6px rgba(6, 37, 26, 0.25);
+}
+
+
+/* Link inferior */
+
+.cadastro {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+.cadastro a {
+    color: #0b3d2b;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.cadastro a:hover {
+    text-decoration: underline;
+}
+
+.btn-visitante {
+    width: 100%;
+    height: 40px;
+
+    margin-top: 10px;
+
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #555;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.btn-visitante:hover {
+    background: #f2f5f3;
+
+    color: #0b3d2b;
+
+    border-color: #78aa91;
+}
