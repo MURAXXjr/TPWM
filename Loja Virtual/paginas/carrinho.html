@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoPerfumes | Carrinho</title>
+
+    <link rel="icon" type="image/png" href="../fotos/icone.png">
+    <link rel="stylesheet" href="../Css's/inicio.css">
+    <link rel="stylesheet" href="../Css's/carrinho.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="inicio.html" class="logo">
+            EcoPerfumes
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="inicio.html">
+                    Início
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesM.html">
+                    Perfumes Masculinos
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesF.html">
+                    Perfumes Femininos
+                </a>
+            </li>
+
+            <li>
+                <a href="Carrinho.html" class="active">
+                    Carrinho
+                </a>
+            </li>
+
+            <li>
+                <a href="Sobre.html">
+                    Sobre
+                </a>
+            </li>
+
+            <li>
+                <a href="perfil.html">
+                    Perfil
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- CONTEÚDO DO CARRINHO -->
+
+    <section class="carrinho-container">
+
+        <h1>Meu Carrinho</h1>
+
+        <div id="lista-carrinho"></div>
+
+        <div id="carrinho-vazio" class="carrinho-vazio" style="display:none;">
+            <p>Seu carrinho está vazio.</p>
+            <a href="inicio.html" class="btn-continuar">Continuar comprando</a>
+        </div>
+
+        <div id="resumo" class="resumo">
+
+            <div class="resumo-linha">
+                <span>Subtotal</span>
+                <span id="subtotal">R$ 0,00</span>
+            </div>
+
+            <div class="resumo-linha total">
+                <span>Total</span>
+                <span id="total">R$ 0,00</span>
+            </div>
+
+            <button class="btn-finalizar" onclick="finalizarCompra()">
+                Finalizar Compra
+            </button>
+
+            <button class="btn-limpar" onclick="limparCarrinho()">
+                Esvaziar Carrinho
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        // -----------------------------
+        // Utilitários
+        // -----------------------------
+
+        function obterCarrinho() {
+            const dados = localStorage.getItem('carrinho');
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function salvarCarrinho(carrinho) {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        // Converte "R$ 259,90" em 259.90
+        function precoParaNumero(precoTexto) {
+            return parseFloat(
+                precoTexto
+                    .replace('R$', '')
+                    .trim()
+                    .replace(/\./g, '')
+                    .replace(',', '.')
+            );
+        }
+
+        // Converte 259.90 em "R$ 259,90"
+        function numeroParaPreco(valor) {
+            return 'R$ ' + valor.toFixed(2).replace('.', ',');
+        }
+
+
+        // -----------------------------
+        // Renderização
+        // -----------------------------
+
+        function renderizarCarrinho() {
+
+            const carrinho = obterCarrinho();
+            const lista = document.getElementById('lista-carrinho');
+            const vazio = document.getElementById('carrinho-vazio');
+            const resumo = document.getElementById('resumo');
+
+            lista.innerHTML = '';
+
+            if (carrinho.length === 0) {
+                vazio.style.display = 'flex';
+                resumo.style.display = 'none';
+                return;
+            }
+
+            vazio.style.display = 'none';
+            resumo.style.display = 'block';
+
+            carrinho.forEach((produto) => {
+
+                const precoUnitario = precoParaNumero(produto.preco);
+                const precoTotalItem = precoUnitario * produto.quantidade;
+
+                lista.innerHTML += `
+
+                    <div class="item-carrinho">
+
+                        <img src="${produto.img}" alt="${produto.nome}">
+
+                        <div class="item-info">
+                            <div class="item-marca">${produto.marca}</div>
+                            <div class="item-nome">${produto.nome}</div>
+                            <div class="item-preco">${produto.preco}</div>
+                        </div>
+
+                        <div class="item-quantidade">
+                            <button onclick="alterarQuantidade(${produto.id}, -1)">-</button>
+                            <span>${produto.quantidade}</span>
+                            <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
+                        </div>
+
+                        <div class="item-subtotal">
+                            ${numeroParaPreco(precoTotalItem)}
+                        </div>
+
+                        <button class="btn-remover" onclick="removerItem(${produto.id})">
+                            ✕
+                        </button>
+
+                    </div>
+
+                `;
+
+            });
+
+            atualizarResumo();
+
+        }
+
+        function atualizarResumo() {
+
+            const carrinho = obterCarrinho();
+
+            const total = carrinho.reduce((soma, produto) => {
+                return soma + (precoParaNumero(produto.preco) * produto.quantidade);
+            }, 0);
+
+            document.getElementById('subtotal').innerText = numeroParaPreco(total);
+            document.getElementById('total').innerText = numeroParaPreco(total);
+
+        }
+
+
+        // -----------------------------
+        // Ações
+        // -----------------------------
+
+        function alterarQuantidade(id, delta) {
+
+            let carrinho = obterCarrinho();
+
+            carrinho = carrinho.map((produto) => {
+                if (produto.id === id) {
+                    produto.quantidade += delta;
+                }
+                return produto;
+            });
+
+            // remove itens com quantidade zero ou negativa
+            carrinho = carrinho.filter((produto) => produto.quantidade > 0);
+
+            salvarCarrinho(carrinho);
+            renderizarCarrinho();
+
+        }
+
+        function removerItem(id) {
+
+            let carrinho = obterCarrinho();
+            carrinho = carrinho.filter((produto) => produto.id !== id);
+
+            salvarCarrinho(carrinho);
+            renderizarCarrinho();
+
+        }
+
+        function limparCarrinho() {
+
+            if (confirm('Tem certeza que deseja esvaziar o carrinho?')) {
+                salvarCarrinho([]);
+                renderizarCarrinho();
+            }
+
+        }
+
+        function finalizarCompra() {
+
+            const carrinho = obterCarrinho();
+
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio.');
+                return;
+            }
+
+            alert('Compra finalizada com sucesso! Obrigado por comprar na EcoPerfumes.');
+            salvarCarrinho([]);
+            renderizarCarrinho();
+
+        }
+
+
+        // -----------------------------
+        // Inicialização
+        // -----------------------------
+
+        renderizarCarrinho();
+
+    </script>
+
+</body>
+
+</html>

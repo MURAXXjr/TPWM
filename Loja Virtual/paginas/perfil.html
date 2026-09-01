@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoPerfumes | Meu Perfil</title>
+
+    <link rel="icon" type="image/png" href="../fotos/icone.png">
+
+    <link rel="stylesheet" href="../Css's/inicio.css">
+    <link rel="stylesheet" href="../Css's/perfil.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="inicio.html" class="logo">
+            EcoPerfumes
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="inicio.html">
+                    Início
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesM.html">
+                    Perfumes Masculinos
+                </a>
+            </li>
+
+            <li>
+                <a href="PerfumesF.html">
+                    Perfumes Femininos
+                </a>
+            </li>
+
+            <li>
+                <a href="Carrinho.html">
+                    Carrinho
+                </a>
+            </li>
+
+            
+            <li>
+                <a href="Sobre.html">
+                    Sobre
+                </a>
+            </li>
+            
+            <li>
+                <a href="Perfil.html" class="active">
+                    Perfil
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <div class="perfil-container">
+
+        <!-- Estado de carregamento, enquanto verifica a sessão -->
+        <div id="carregando" class="perfil-carregando">
+            <p>Carregando perfil...</p>
+        </div>
+
+        <!-- Perfil do usuário logado -->
+        <div id="perfil-box" class="perfil-box" style="display: none;">
+
+            <div class="perfil-avatar">
+                <span id="perfil-inicial">?</span>
+            </div>
+
+            <h1 id="perfil-email">-</h1>
+
+            <p class="perfil-info">
+                Membro desde <span id="perfil-data">-</span>
+            </p>
+
+            <div class="perfil-acoes">
+
+                <button class="btn-logout" id="btnLogout">
+                    Sair da conta
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Exibido quando não há sessão ativa -->
+        <div id="nao-logado" class="perfil-box" style="display: none;">
+
+            <div class="perfil-avatar perfil-avatar-neutro">
+                <span>👤</span>
+            </div>
+
+            <h1>Você não está logado</h1>
+
+            <p class="perfil-info">
+                Faça login para acessar seu perfil.
+            </p>
+
+            <div class="perfil-acoes">
+
+                <button
+                    class="btn-login-perfil"
+                    onclick="window.location.href='login.html'"
+                >
+                    Fazer login
+                </button>
+
+                <p class="cadastro">
+                    Ainda não possui uma conta?
+                    <a href="cadastro.html">Criar conta</a>
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Exibido se algo der errado ao carregar -->
+        <div id="erro-perfil" class="perfil-box" style="display: none;">
+
+            <div class="perfil-avatar perfil-avatar-neutro">
+                <span>⚠</span>
+            </div>
+
+            <h1>Não foi possível carregar</h1>
+
+            <p class="perfil-info" id="erro-mensagem">
+                Ocorreu um erro ao verificar seu login. Tente recarregar a página.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../Js/supabase.js"></script>
+    <script src="../Js/perfil.js"></script>
+
+</body>
+
+</html>

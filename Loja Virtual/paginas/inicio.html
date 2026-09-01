@@ -11,6 +11,7 @@
 
     <link rel="icon" type="image/png" href="../fotos/icone.png"> 
     <link rel="stylesheet" href="../Css's/inicio.css">
+    <link rel="stylesheet" href="../Css's/carrinho.css">
 
 </head>
 
@@ -45,7 +46,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="Carrinho.html">
                     Carrinho
                 </a>
             </li>
@@ -53,6 +54,12 @@
             <li>
                 <a href="Sobre.html">
                     Sobre
+                </a>
+            </li>
+
+            <li>
+                <a href="perfil.html">
+                    Perfil
                 </a>
             </li>
 
@@ -77,6 +84,13 @@
 
     <div id="produtos"></div>
 
+    <!-- Aviso de produto adicionado -->
+    <div id="toast" class="toast-carrinho">Produto adicionado ao carrinho!</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../Js/supabase.js"></script>
+    <script src="../Js/carrinho-auth.js"></script>
 
     <script>
 
@@ -173,16 +187,58 @@
         });
 
 
+        // -----------------------------
+        // Integração com o carrinho (localStorage)
+        // -----------------------------
+
+        function obterCarrinho() {
+            const dados = localStorage.getItem('carrinho');
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function salvarCarrinho(carrinho) {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        // Agora protegida: só adiciona se o usuário estiver logado
         function adicionarCarrinho(id) {
 
-            const produto = items.find(
-                item => item.id === id
-            );
+            protegerAcaoCarrinho(() => {
 
-            console.log(
-                'Produto adicionado:',
-                produto.nome
-            );
+                const produto = items.find(
+                    item => item.id === id
+                );
+
+                if (!produto) return;
+
+                let carrinho = obterCarrinho();
+
+                const existente = carrinho.find(item => item.id === id);
+
+                if (existente) {
+                    existente.quantidade += 1;
+                } else {
+                    carrinho.push({ ...produto, quantidade: 1 });
+                }
+
+                salvarCarrinho(carrinho);
+
+                console.log('Produto adicionado:', produto.nome);
+                mostrarToast();
+
+            });
+
+        }
+
+        function mostrarToast() {
+
+            const toast = document.getElementById('toast');
+            toast.classList.add('mostrar');
+
+            clearTimeout(window._toastTimeout);
+            window._toastTimeout = setTimeout(() => {
+                toast.classList.remove('mostrar');
+            }, 2000);
 
         }
 

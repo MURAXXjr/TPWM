@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="../Css's/PerfumeM.css">
 
+    <link rel="stylesheet" href="../Css's/carrinho.css">
+
 </head>
 
 <body>
@@ -46,7 +48,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="Carrinho.html">
                     Carrinho
                 </a>
             </li>
@@ -57,18 +59,30 @@
                 </a>
             </li>
 
+            <li>
+                <a href="perfil.html">
+                    Perfil
+                </a>
+            </li>
+
         </ul>
 
     </nav>
 
     <div id="produtos"></div>
 
+    <div id="toast" class="toast-carrinho">Produto adicionado ao carrinho!</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../Js/supabase.js"></script>
+    <script src="../Js/carrinho-auth.js"></script>
+
     <script>
 
         const perfumes = [
 
             {
-                id: 1,
+                id: 101,
                 marca: "Boticário",
                 nome: "Malbec Noir 100ml",
                 img: "../fotos/MalbecNoir.jpg",
@@ -76,7 +90,7 @@
             },
 
             {
-                id: 2,
+                id: 102,
                 marca: "Boticário",
                 nome: "Malbec Black 100ml",
                 img: "../fotos/MalbecBlack.jpg",
@@ -84,7 +98,7 @@
             },
 
             {
-                id: 3,
+                id: 103,
                 marca: "Boticário",
                 nome: "Quasar 100ml",
                 img: "../fotos/QuasarBlue.jpg",
@@ -92,7 +106,7 @@
             },
 
             {
-                id: 4,
+                id: 104,
                 marca: "Boticário",
                 nome: "The Blend 100ml",
                 img: "../fotos/TheBlend.jpg",
@@ -100,7 +114,7 @@
             },
 
             {
-                id: 5,
+                id: 105,
                 marca: "Paco Rabanne",
                 nome: "1 Million 100ml",
                 img: "../fotos/1million.jpg",
@@ -108,7 +122,7 @@
             },
 
             {
-                id: 6,
+                id: 106,
                 marca: "Paco Rabanne",
                 nome: "Invictus 100ml",
                 img: "../fotos/pacorabanne.jpg",
@@ -116,7 +130,7 @@
             },
 
             {
-                id: 7,
+                id: 107,
                 marca: "Carolina Herrera",
                 nome: "212 Men 100ml",
                 img: "../fotos/212men.jpg",
@@ -124,7 +138,7 @@
             },
 
             {
-                id: 8,
+                id: 108,
                 marca: "Armani",
                 nome: "Acqua di Gio 100ml",
                 img: "../fotos/Acqua.jpg",
@@ -132,7 +146,7 @@
             },
 
             {
-                id: 9,
+                id: 109,
                 marca: "Chanel",
                 nome: "Bleu de Chanel 100ml",
                 img: "../fotos/BleuChanel.jpg",
@@ -140,7 +154,7 @@
             },
 
             {
-                id: 10,
+                id: 110,
                 marca: "Versace",
                 nome: "Eros 100ml",
                 img: "../fotos/eros.jpg",
@@ -187,16 +201,59 @@
 
         });
 
+
+        // -----------------------------
+        // Integração com o carrinho (localStorage)
+        // -----------------------------
+
+        function obterCarrinho() {
+            const dados = localStorage.getItem('carrinho');
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function salvarCarrinho(carrinho) {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        // Agora protegida: só adiciona se o usuário estiver logado
         function adicionarCarrinho(id) {
 
-            const produto = perfumes.find(
-                item => item.id === id
-            );
+            protegerAcaoCarrinho(() => {
 
-            console.log(
-                "Produto adicionado:",
-                produto.nome
-            );
+                const produto = perfumes.find(
+                    item => item.id === id
+                );
+
+                if (!produto) return;
+
+                let carrinho = obterCarrinho();
+
+                const existente = carrinho.find(item => item.id === id);
+
+                if (existente) {
+                    existente.quantidade += 1;
+                } else {
+                    carrinho.push({ ...produto, quantidade: 1 });
+                }
+
+                salvarCarrinho(carrinho);
+
+                console.log("Produto adicionado:", produto.nome);
+                mostrarToast();
+
+            });
+
+        }
+
+        function mostrarToast() {
+
+            const toast = document.getElementById('toast');
+            toast.classList.add('mostrar');
+
+            clearTimeout(window._toastTimeout);
+            window._toastTimeout = setTimeout(() => {
+                toast.classList.remove('mostrar');
+            }, 2000);
 
         }
 

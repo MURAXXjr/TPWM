@@ -1,0 +1,234 @@
+/* ===========================
+   TELA DO CARRINHO
+   =========================== */
+
+:root {
+    --verde-primario: #66c984;
+    --verde-escuro: #3f9c60;
+    --verde-texto: #1f4d2e;
+    --verde-claro: #eaf8ee;
+    --verde-borda: #cdeed9;
+}
+
+.carrinho-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.carrinho-container h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+    color: var(--verde-texto);
+}
+
+/* Item do carrinho */
+
+.item-carrinho {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto auto;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid var(--verde-borda);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+
+.item-carrinho img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-marca {
+    font-size: 12px;
+    color: #6b8b76;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-nome {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--verde-texto);
+}
+
+.item-preco {
+    font-size: 13px;
+    color: #6b8b76;
+}
+
+.item-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-quantidade button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--verde-borda);
+    background: var(--verde-claro);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--verde-texto);
+}
+
+.item-quantidade button:hover {
+    background: var(--verde-primario);
+    color: #ffffff;
+    border-color: var(--verde-primario);
+}
+
+.item-subtotal {
+    font-weight: 700;
+    color: var(--verde-texto);
+    white-space: nowrap;
+}
+
+.btn-remover {
+    border: none;
+    background: transparent;
+    color: #c0392b;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-remover:hover {
+    color: #922b21;
+}
+
+/* Carrinho vazio */
+
+.carrinho-vazio {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 60px 0;
+    color: #6b8b76;
+    text-align: center;
+}
+
+.btn-continuar {
+    background: var(--verde-primario);
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-continuar:hover {
+    background: var(--verde-escuro);
+}
+
+/* Resumo do pedido */
+
+.resumo {
+    margin-top: 24px;
+    background: var(--verde-claro);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: #3c5c46;
+}
+
+.resumo-linha.total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--verde-texto);
+    border-top: 1px solid var(--verde-borda);
+    margin-top: 8px;
+    padding-top: 12px;
+}
+
+.btn-finalizar {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--verde-primario);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-finalizar:hover {
+    background: var(--verde-escuro);
+}
+
+.btn-limpar {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: transparent;
+    color: #c0392b;
+    border: 1px solid #e7bdb6;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-limpar:hover {
+    background: #fdf1ef;
+}
+
+/* Feedback ao adicionar produto (usado em inicio.html) */
+
+.toast-carrinho {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--verde-primario);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.toast-carrinho.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsivo */
+
+@media (max-width: 640px) {
+
+    .item-carrinho {
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .item-quantidade,
+    .item-subtotal,
+    .btn-remover {
+        grid-column: 2;
+    }
+
+}
