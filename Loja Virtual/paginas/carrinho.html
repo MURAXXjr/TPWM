@@ -14,8 +14,6 @@
 
 <body>
 
-    <!-- NAVBAR -->
-
     <nav class="navbar">
 
         <a href="inicio.html" class="logo">
@@ -66,8 +64,6 @@
     </nav>
 
 
-    <!-- CONTEÚDO DO CARRINHO -->
-
     <section class="carrinho-container">
 
         <h1>Meu Carrinho</h1>
@@ -106,10 +102,6 @@
 
     <script>
 
-        // -----------------------------
-        // Utilitários
-        // -----------------------------
-
         function obterCarrinho() {
             const dados = localStorage.getItem('carrinho');
             return dados ? JSON.parse(dados) : [];
@@ -119,7 +111,7 @@
             localStorage.setItem('carrinho', JSON.stringify(carrinho));
         }
 
-        // Converte "R$ 259,90" em 259.90
+        // "R$ 259,90" -> 259.90 (precisa virar número pra dar pra somar)
         function precoParaNumero(precoTexto) {
             return parseFloat(
                 precoTexto
@@ -130,15 +122,11 @@
             );
         }
 
-        // Converte 259.90 em "R$ 259,90"
+        // 259.90 -> "R$ 259,90"
         function numeroParaPreco(valor) {
             return 'R$ ' + valor.toFixed(2).replace('.', ',');
         }
 
-
-        // -----------------------------
-        // Renderização
-        // -----------------------------
 
         function renderizarCarrinho() {
 
@@ -199,6 +187,7 @@
 
         }
 
+        // Soma preço x quantidade de todos os itens do carrinho
         function atualizarResumo() {
 
             const carrinho = obterCarrinho();
@@ -213,10 +202,6 @@
         }
 
 
-        // -----------------------------
-        // Ações
-        // -----------------------------
-
         function alterarQuantidade(id, delta) {
 
             let carrinho = obterCarrinho();
@@ -228,7 +213,7 @@
                 return produto;
             });
 
-            // remove itens com quantidade zero ou negativa
+            // tira do carrinho quem ficou com quantidade 0 ou menos
             carrinho = carrinho.filter((produto) => produto.quantidade > 0);
 
             salvarCarrinho(carrinho);
@@ -269,11 +254,6 @@
             renderizarCarrinho();
 
         }
-
-
-        // -----------------------------
-        // Inicialização
-        // -----------------------------
 
         renderizarCarrinho();
 

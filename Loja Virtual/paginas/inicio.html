@@ -18,8 +18,6 @@
 
 <body>
 
-    <!-- NAVBAR -->
-
     <nav class="navbar">
 
         <a href="inicio.html" class="logo">
@@ -70,8 +68,6 @@
     </nav>
 
 
-    <!-- BANNER / CARROSSEL -->
-
     <section class="hero-carrossel" id="heroCarrossel">
 
         <div class="slide ativo" data-slide="0">
@@ -112,8 +108,6 @@
     </section>
 
 
-    <!-- DESTAQUES -->
-
     <div class="destaques-intro" id="destaques">
         <span>Selecionados para você</span>
         <h2>Perfumes em destaque</h2>
@@ -121,10 +115,7 @@
 
     <div id="produtos"></div>
 
-    <!-- Aviso de produto adicionado -->
     <div id="toast" class="toast-carrinho">Produto adicionado ao carrinho!</div>
-
-    <!-- FOOTER -->
 
     <footer class="footer">
 
@@ -166,10 +157,7 @@
 
     <script>
 
-        // -----------------------------
-        // Carrossel do banner
-        // -----------------------------
-
+        // Carrossel de banners
         const slides = document.querySelectorAll('#heroCarrossel .slide');
         const dotsContainer = document.getElementById('carrosselDots');
         let slideAtual = 0;
@@ -204,6 +192,7 @@
 
         }
 
+        // % slides.length faz voltar pro slide 0 depois do último
         function proximoSlide() {
             irParaSlide((slideAtual + 1) % slides.length);
         }
@@ -224,10 +213,7 @@
         iniciarAutoplay();
 
 
-        // -----------------------------
-        // Produtos em destaque
-        // -----------------------------
-
+        // Lista de produtos usada pra montar os cards automaticamente
         const items = [
 
             {
@@ -329,50 +315,48 @@
         ];
 
 
-        const produtos = document.getElementById('produtos');
+       const produtos = document.getElementById('produtos');
 
+    // Passa por cada produto da lista "items" e monta o HTML dele
+    items.forEach((produto) => {
 
-        items.forEach((produto) => {
+    // Usa template string (crase) pra montar o HTML com os dados do produto
+    // e soma (+=) no conteúdo que já existe dentro da div #produtos
+    produtos.innerHTML += `
 
-            produtos.innerHTML += `
+        <div class="produto">
 
-                <div class="produto">
+            <img
+                src="${produto.img}"
+                alt="${produto.nome}"
+            >
 
-                    <img
-                        src="${produto.img}"
-                        alt="${produto.nome}"
-                    >
+            <div class="marca">
+                ${produto.marca}
+            </div>
 
-                    <div class="marca">
-                        ${produto.marca}
-                    </div>
+            <div class="nome">
+                ${produto.nome}
+            </div>
 
-                    <div class="nome">
-                        ${produto.nome}
-                    </div>
+            <div class="preco">
+                ${produto.preco}
+            </div>
 
-                    <div class="preco">
-                        ${produto.preco}
-                    </div>
+            <button
+                class="btn-carrinho"
+                onclick="adicionarCarrinho(${produto.id})"
+            >
+                🛒
+            </button>
 
-                    <button
-                        class="btn-carrinho"
-                        onclick="adicionarCarrinho(${produto.id})"
-                    >
-                        🛒
-                    </button>
+        </div>
 
-                </div>
+    `;
 
-            `;
+});
 
-        });
-
-
-        // -----------------------------
-        // Integração com o carrinho (localStorage)
-        // -----------------------------
-
+        // Carrinho salvo no localStorage (precisa converter pra/de JSON pra guardar objetos)
         function obterCarrinho() {
             const dados = localStorage.getItem('carrinho');
             return dados ? JSON.parse(dados) : [];
@@ -382,9 +366,9 @@
             localStorage.setItem('carrinho', JSON.stringify(carrinho));
         }
 
-        // Protegida: só adiciona se o usuário estiver logado
         function adicionarCarrinho(id) {
 
+            // Só executa se o usuário estiver logado (checagem em carrinho-auth.js)
             protegerAcaoCarrinho(() => {
 
                 const produto = items.find(

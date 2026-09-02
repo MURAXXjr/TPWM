@@ -1,5 +1,5 @@
 
-
+// Consulta o Supabase pra saber se existe uma sessão de login ativa
 async function usuarioEstaLogado() {
 
     if (typeof supabaseClient === "undefined" || !supabaseClient) {
@@ -18,8 +18,8 @@ async function usuarioEstaLogado() {
 
 }
 
-// Recebe uma função (ação) que só deve rodar se o usuário estiver logado.
-// Se não estiver logado, avisa e redireciona para o login.
+// Só deixa a ação (ex: adicionar ao carrinho) rodar se o usuário estiver logado.
+// Se não estiver, avisa e manda pra tela de login.
 async function protegerAcaoCarrinho(acao) {
 
     const logado = await usuarioEstaLogado();

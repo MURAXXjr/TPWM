@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cadastro</title>
-    <link rel="icon" type="image/png" href="../fotos/icone.png"> 
+
+    <link rel="icon" type="image/png" href="../fotos/icone.png">
     <link rel="stylesheet" href="../Css's/cadastrocss.css">
-
-
 </head>
 
 <body>
@@ -22,8 +23,23 @@
 
             <form id="cadastroForm">
 
+                <!-- Nome -->
+                <div class="input-group">
+
+                    <label for="nome">Nome</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Digite seu nome"
+                    >
+
+                </div>
+
+
                 <!-- E-mail -->
                 <div class="input-group">
+
                     <label for="email">E-mail</label>
 
                     <input
@@ -31,11 +47,13 @@
                         id="email"
                         placeholder="Digite seu e-mail"
                     >
+
                 </div>
 
 
                 <!-- Senha -->
                 <div class="input-group">
+
                     <label for="senha">Senha</label>
 
                     <div class="password-container">
@@ -55,10 +73,13 @@
                         </button>
 
                     </div>
+
                 </div>
 
 
+                <!-- Confirmar senha -->
                 <div class="input-group">
+
                     <label for="confirmarSenha">Confirmar senha</label>
 
                     <div class="password-container">
@@ -78,14 +99,24 @@
                         </button>
 
                     </div>
+
                 </div>
 
+
+                <!-- Mensagem -->
                 <p id="mensagem"></p>
 
-                <button type="submit" class="btn-login">
+
+                <!-- Criar conta -->
+                <button
+                    type="submit"
+                    class="btn-login"
+                >
                     Criar conta
                 </button>
-                
+
+
+                <!-- Continuar sem login -->
                 <button
                     type="button"
                     class="btn-visitante"
@@ -93,20 +124,30 @@
                 >
                     Continuar sem login
                 </button>
+
             </form>
 
 
             <p class="cadastro">
+
                 Já possui uma conta?
-                <a href="login.html">Entrar</a>
+
+                <a href="login.html">
+                    Entrar
+                </a>
+
             </p>
 
         </div>
 
     </div>
 
+
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="../Js/supabase.js"></script>
+
     <script src="../Js/cadastroscript.js"></script>
 
 </body>
