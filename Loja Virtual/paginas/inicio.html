@@ -11,10 +11,10 @@
 
     <link rel="icon" type="image/png" href="../fotos/icone.png"> 
     <link rel="stylesheet" href="../Css's/inicio.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link rel="stylesheet" href="../Css's/carrinho.css">
 
+    <link rel="stylesheet" href="../Css's/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -24,6 +24,7 @@
     <nav class="navbar">
 
         <a href="inicio.html" class="logo">
+            <img src="../fotos/icone.png" alt="EcoPerfumes" class="logo-img">
             EcoPerfumes
         </a>
 
@@ -70,24 +71,96 @@
     </nav>
 
 
-    <!-- BANNER -->
+    <!-- BANNER / CARROSSEL -->
 
-    <section class="banner">
+    <section class="hero-carrossel" id="heroCarrossel">
 
-        <img
-            src="../fotos/banner2.png"
-            alt="Promoção de perfumes"
-        >
+        <div class="slide ativo" data-slide="0">
+            <img src="../fotos/banner1.png" alt="Lançamento de perfumes EcoPerfumes">
+            <div class="slide-scrim"></div>
+            <div class="slide-texto">
+                <span class="categoria">Novidade</span>
+                <h1>Fragrâncias que respeitam sua rotina e o planeta</h1>
+                <p>Conheça os lançamentos com embalagem reciclável e essências de procedência garantida.</p>
+                <a href="#destaques" class="btn-hero">Ver lançamentos</a>
+            </div>
+        </div>
+
+        <div class="slide" data-slide="1">
+            <img src="../fotos/banner2.png" alt="Coleção de perfumes femininos">
+            <div class="slide-scrim"></div>
+            <div class="slide-texto">
+                <span class="categoria">Para elas</span>
+                <h1>Florais e amadeirados em edição especial</h1>
+                <p>Da Boticário à Dior, encontre a fragrância masculina que combina com você.</p>
+                <a href="PerfumesF.html" class="btn-hero">Explorar femininos</a>
+            </div>
+        </div>
+
+        <div class="slide" data-slide="2">
+            <img src="../fotos/banner3.png" alt="Coleção de perfumes masculinos">
+            <div class="slide-scrim"></div>
+            <div class="slide-texto">
+                <span class="categoria">Para eles</span>
+                <h1>Amadeirados e intensos para o dia a dia</h1>
+                <p>Frascos exclusivos e notas florais selecionadas para todos os estilos.</p>
+                <a href="PerfumesM.html" class="btn-hero">Explorar masculinos</a>
+            </div>
+        </div>
+
+        <div class="carrossel-dots" id="carrosselDots"></div>
 
     </section>
 
 
-    <!-- PRODUTOS -->
+    <!-- DESTAQUES -->
+
+    <div class="destaques-intro" id="destaques">
+        <span>Selecionados para você</span>
+        <h2>Perfumes em destaque</h2>
+    </div>
 
     <div id="produtos"></div>
 
     <!-- Aviso de produto adicionado -->
     <div id="toast" class="toast-carrinho">Produto adicionado ao carrinho!</div>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="social">
+
+            <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#" aria-label="GitHub" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i>
+            </a>
+
+            <a href="#" aria-label="WhatsApp" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+        </div>
+
+        <nav class="footer-nav">
+
+            <a href="inicio.html">Início</a>
+            <a href="PerfumesM.html">Perfumes Masculinos</a>
+            <a href="PerfumesF.html">Perfumes Femininos</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="#">Contato</a>
+
+        </nav>
+
+    </footer>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -95,6 +168,68 @@
     <script src="../Js/carrinho-auth.js"></script>
 
     <script>
+
+        // -----------------------------
+        // Carrossel do banner
+        // -----------------------------
+
+        const slides = document.querySelectorAll('#heroCarrossel .slide');
+        const dotsContainer = document.getElementById('carrosselDots');
+        let slideAtual = 0;
+        let intervaloCarrossel;
+
+        slides.forEach((_, indice) => {
+
+            const dot = document.createElement('button');
+            dot.setAttribute('aria-label', `Ir para o slide ${indice + 1}`);
+            if (indice === 0) dot.classList.add('ativo');
+
+            dot.addEventListener('click', () => {
+                irParaSlide(indice);
+                reiniciarAutoplay();
+            });
+
+            dotsContainer.appendChild(dot);
+
+        });
+
+        const dots = dotsContainer.querySelectorAll('button');
+
+        function irParaSlide(indice) {
+
+            slides[slideAtual].classList.remove('ativo');
+            dots[slideAtual].classList.remove('ativo');
+
+            slideAtual = indice;
+
+            slides[slideAtual].classList.add('ativo');
+            dots[slideAtual].classList.add('ativo');
+
+        }
+
+        function proximoSlide() {
+            irParaSlide((slideAtual + 1) % slides.length);
+        }
+
+        function iniciarAutoplay() {
+            intervaloCarrossel = setInterval(proximoSlide, 6000);
+        }
+
+        function reiniciarAutoplay() {
+            clearInterval(intervaloCarrossel);
+            iniciarAutoplay();
+        }
+
+        const heroCarrossel = document.getElementById('heroCarrossel');
+        heroCarrossel.addEventListener('mouseenter', () => clearInterval(intervaloCarrossel));
+        heroCarrossel.addEventListener('mouseleave', iniciarAutoplay);
+
+        iniciarAutoplay();
+
+
+        // -----------------------------
+        // Produtos em destaque
+        // -----------------------------
 
         const items = [
 
@@ -144,6 +279,54 @@
                 nome: 'Perfume Feminino Prada Paradoxe Virtual Flower Eau de Parfum 30ml',
                 img: '../fotos/PradaParadoxoFeminino.jpg',
                 preco: 'R$ 558,52'
+            },
+
+            {
+                id: 6,
+                marca: 'Versace',
+                nome: 'Eros 100ml',
+                img: '../fotos/eros.jpg',
+                preco: 'R$ 549,90'
+            },
+
+            {
+                id: 7,
+                marca: 'Natura',
+                nome: 'Essencial Feminino 100ml',
+                img: '../fotos/essencial.jpg',
+                preco: 'R$ 199,90'
+            },
+
+            {
+                id: 8,
+                marca: 'Armani',
+                nome: 'Acqua di Gio 100ml',
+                img: '../fotos/Acqua.jpg',
+                preco: 'R$ 699,90'
+            },
+
+            {
+                id: 9,
+                marca: 'Lancôme',
+                nome: 'La Vie Est Belle 75ml',
+                img: '../fotos/lacome.jpg',
+                preco: 'R$ 699,90'
+            },
+
+            {
+                id: 10,
+                marca: 'Boticário',
+                nome: 'The Blend 100ml',
+                img: '../fotos/TheBlend.jpg',
+                preco: 'R$ 199,90'
+            },
+
+            {
+                id: 11,
+                marca: 'Chanel',
+                nome: 'Bleu de Chanel 100ml',
+                img: '../fotos/BleuChanel.jpg',
+                preco: 'R$ 899,90'
             }
 
         ];
@@ -202,7 +385,7 @@
             localStorage.setItem('carrinho', JSON.stringify(carrinho));
         }
 
-        // Agora protegida: só adiciona se o usuário estiver logado
+        // Protegida: só adiciona se o usuário estiver logado
         function adicionarCarrinho(id) {
 
             protegerAcaoCarrinho(() => {
@@ -246,38 +429,7 @@
 
     </script>
 
-    <footer class="footer">
-
-        <div class="social">
-
-            <a href="#" aria-label="Instagram">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#" aria-label="Github">
-                <i class="fa-brands fa-github"></i>
-            </a>
-
-            <a href="#" aria-label="Whatsapp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-
-            <a href="#" aria-label="Facebook">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-        </div>
-
-        <nav class="footer-nav">
-            <a href="#">Home</a>
-            <a href="#">Serviços</a>
-            <a href="#">Sobre</a>
-            <a href="#">Termos</a>
-            <a href="#">Política de Privacidade</a>
-        </nav>
-
-    </footer>
-
+    <script src="../Js/navbar.js"></script>
 </body>
 
 </html>

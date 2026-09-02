@@ -1,0 +1,28 @@
+/* navbar-hide.css
+   Apesar do nome, agora a navbar fica sempre fixa e visível no topo
+   (não esconde mais). Inclua este arquivo DEPOIS do CSS da página
+   (ele só ajusta posicionamento, sem mexer nas cores/fontes da navbar). */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 1000;
+}
+
+/* Empurra o conteúdo da página para baixo, no valor da altura da navbar,
+   já que ela saiu do fluxo normal (position: fixed) */
+body {
+    padding-top: 80px;
+}
+
+@media (max-width: 800px) {
+
+    /* Nas telas menores a navbar quebra em várias linhas e fica mais alta */
+    body {
+        padding-top: 150px;
+    }
+
+}
