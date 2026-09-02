@@ -1,7 +1,7 @@
 :root {
-    --verde-primario: #66c984;
+    --verde-primario: #2b8747;
     --verde-escuro: #3f9c60;
-    --verde-texto: #1f4d2e;
+    --verde-texto: #000000;
     --verde-claro: #eaf8ee;
     --verde-borda: #cdeed9;
 }
@@ -113,7 +113,7 @@
     justify-content: center;
     gap: 14px;
     padding: 60px 0;
-    color: #6b8b76;
+    color: #000000;
     text-align: center;
 }
 
