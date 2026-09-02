@@ -1,7 +1,3 @@
-// -----------------------------
-// Referências dos elementos
-// -----------------------------
-
 const carregando = document.getElementById("carregando");
 const perfilBox = document.getElementById("perfil-box");
 const naoLogado = document.getElementById("nao-logado");
@@ -9,7 +5,6 @@ const erroPerfil = document.getElementById("erro-perfil");
 const btnLogout = document.getElementById("btnLogout");
 
 
-// Esconde todos os estados antes de mostrar o correto
 function esconderTudo() {
 
     if (carregando) carregando.style.display = "none";
@@ -19,8 +14,6 @@ function esconderTudo() {
 
 }
 
-
-// Mostra a tela de erro com uma mensagem específica
 function exibirErro(msg) {
 
     console.error("Erro na tela de perfil:", msg);
@@ -38,15 +31,12 @@ function exibirErro(msg) {
 
 }
 
-
-// Mostra a tela indicando que é necessário fazer login
 function exibirNaoLogado() {
 
     esconderTudo();
     if (naoLogado) naoLogado.style.display = "flex";
 
 }
-
 
 // Preenche a tela com os dados do usuário logado
 function exibirPerfil(usuario) {
@@ -78,11 +68,7 @@ function exibirPerfil(usuario) {
     if (perfilBox) perfilBox.style.display = "flex";
 
 }
-
-
-// -----------------------------
 // Verificação da sessão
-// -----------------------------
 
 async function verificarUsuario() {
 
@@ -126,11 +112,6 @@ async function verificarUsuario() {
 
 }
 
-
-// -----------------------------
-// Ações
-// -----------------------------
-
 if (btnLogout) {
 
     btnLogout.addEventListener("click", async function () {
@@ -151,8 +132,7 @@ if (btnLogout) {
 
 }
 
-
-// Mantém a tela atualizada caso o estado de login mude em outra aba
+//Mantém a tela atualizada caso o estado de login mude em outra aba
 if (typeof supabaseClient !== "undefined" && supabaseClient) {
 
     supabaseClient.auth.onAuthStateChange((event) => {
@@ -164,7 +144,6 @@ if (typeof supabaseClient !== "undefined" && supabaseClient) {
     });
 
 }
-
 
 // Segurança: se em 6 segundos nada resolveu, mostra erro em vez de travar
 const timeoutSeguranca = setTimeout(() => {

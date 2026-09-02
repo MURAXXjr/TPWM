@@ -1,31 +1,41 @@
-// navbar-hide.js
-// Torna a navbar escondida por padrão, revelando-a apenas quando
-// o mouse chega perto do topo da tela (ou enquanto está sobre ela).
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
 
-    const ZONA_SENSIVEL_PX = 60;
+    const LIMIAR_PX = 10; 
 
-    // Em telas sem mouse (celular/tablet), manter a navbar sempre visível
+    navbar.classList.add('visivel');
+
     if (window.matchMedia('(hover: none)').matches) {
-        navbar.classList.add('visivel');
         return;
     }
 
-    document.addEventListener('mousemove', function (evento) {
+    let ultimoScrollY = window.scrollY;
+    let aguardando = false;
 
-        const pertoDoTopo = evento.clientY <= ZONA_SENSIVEL_PX;
-        const sobreNavbar = navbar.contains(evento.target);
+    function atualizarNavbar() {
+        const scrollAtual = window.scrollY;
+        const diferenca = scrollAtual - ultimoScrollY;
 
-        if (pertoDoTopo || sobreNavbar) {
+        if (scrollAtual <= 0) {
             navbar.classList.add('visivel');
-        } else {
+        } else if (diferenca > LIMIAR_PX) {
             navbar.classList.remove('visivel');
+            ultimoScrollY = scrollAtual;
+        } else if (diferenca < -LIMIAR_PX) {
+            navbar.classList.add('visivel');
+            ultimoScrollY = scrollAtual;
         }
 
+        aguardando = false;
+    }
+
+    document.addEventListener('scroll', function () {
+        if (!aguardando) {
+            requestAnimationFrame(atualizarNavbar);
+            aguardando = true;
+        }
     });
 
 });

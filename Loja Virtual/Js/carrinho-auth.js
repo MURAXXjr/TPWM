@@ -1,11 +1,4 @@
-// Js/carrinho-auth.js
-//
-// Função central de proteção do carrinho.
-// Qualquer página que queira exigir login antes de uma ação
-// (ex: adicionar ao carrinho) deve usar protegerAcaoCarrinho().
-//
-// Requer que supabase-js e supabase.js já tenham sido carregados
-// ANTES deste script (eles criam a variável global supabaseClient).
+
 
 async function usuarioEstaLogado() {
 

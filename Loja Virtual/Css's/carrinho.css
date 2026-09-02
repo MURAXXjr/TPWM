@@ -1,7 +1,3 @@
-/* ===========================
-   TELA DO CARRINHO
-   =========================== */
-
 :root {
     --verde-primario: #66c984;
     --verde-escuro: #3f9c60;
@@ -192,7 +188,6 @@
     background: #fdf1ef;
 }
 
-/* Feedback ao adicionar produto (usado em inicio.html) */
 
 .toast-carrinho {
     position: fixed;

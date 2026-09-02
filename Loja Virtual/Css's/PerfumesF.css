@@ -25,7 +25,7 @@ body {
     width: 100%;
     min-height: 80px;
 
-    background: #66c984;
+    background: #115525;
 
     display: flex;
     align-items: center;
@@ -42,6 +42,10 @@ body {
     font-weight: bold;
 
     text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-links {

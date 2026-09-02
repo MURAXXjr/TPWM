@@ -4,18 +4,14 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>EcoPerfumes</title>
-
     <link rel="icon" type="image/png" href="../fotos/icone.png">
-
+    <link rel="stylesheet" href="../Css's/icone.css">
     <link rel="stylesheet" href="../Css's/PerfumeM.css">
-
     <link rel="stylesheet" href="../Css's/carrinho.css">
-
     <link rel="stylesheet" href="../Css's/navbar.css">
+
 </head>
 
 <body>
@@ -25,6 +21,7 @@
     <nav class="navbar">
 
         <a href="inicio.html" class="logo">
+            <img src="../fotos/icone.png" alt="EcoPerfumes" class="icone-img">
             EcoPerfumes
         </a>
 
@@ -71,9 +68,7 @@
     </nav>
 
     <div id="produtos"></div>
-
     <div id="toast" class="toast-carrinho">Produto adicionado ao carrinho!</div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../Js/supabase.js"></script>
     <script src="../Js/carrinho-auth.js"></script>
@@ -202,11 +197,7 @@
 
         });
 
-
-        // -----------------------------
-        // Integração com o carrinho (localStorage)
-        // -----------------------------
-
+        // Integração com o carrinho
         function obterCarrinho() {
             const dados = localStorage.getItem('carrinho');
             return dados ? JSON.parse(dados) : [];
